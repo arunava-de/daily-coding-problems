@@ -1,0 +1,15 @@
+def is_sum_K(A, k):
+    
+    A_dict = {}
+    for i in range(len(A)):
+        if A[i] in A_dict.keys():
+            A_dict[A[i]] += 1
+        else:
+            A_dict[A[i]] = 1
+    
+    for a in A:
+        A_dict[a] -= 1
+        if A_dict[k-a]>0:
+            return True
+    
+    return False
