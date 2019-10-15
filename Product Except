@@ -1,0 +1,15 @@
+A = list(map(int,input().split()))
+l = [1]*len(A)
+r = [1]*len(A)
+for i in range(1,len(A)):
+    l[i] = A[i-1]*l[i-1]
+
+for i in range(len(A)-2,-1,-1):
+    r[i] = A[i+1]*r[i+1]
+
+res = []
+
+for i in range(len(l)):
+    res.append(l[i]*r[i])
+    
+print(res)
