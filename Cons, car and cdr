@@ -1,0 +1,13 @@
+def cons(a, b):
+    def pair(f):
+        return f(a, b)
+    return pair
+    
+def car(a,b):
+    return a
+
+def cdr(a,b):
+    return b
+    
+cons(3,4)(car)
+cons(3,4)(cdr
