@@ -1,0 +1,12 @@
+opt = [0]*n
+opt[n-1] = 1
+if int(s[n-2:n])<26:
+    opt[n-2] = 2
+else:
+    opt[n-2] = 1
+    
+for i in range(n-3,-1,-1):
+    if int(s[i:i+2])<=26:
+        opt[i] = opt[i+1] + opt[i+2]
+    else:
+        opt[i] = opt[i+1]
