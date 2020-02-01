@@ -1,0 +1,11 @@
+class orders:
+    
+    def __init__(self):
+        self.log = []
+        
+    def record(self, order_id):
+        self.log.append(order_id)
+    
+    def get_last(self, i):
+        return self.log[-i]
+        
