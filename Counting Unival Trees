@@ -1,0 +1,44 @@
+class Tree:
+
+    def __init__(self,v=None,left=None,right=None):
+        if v == None:
+            self.value = None
+            self.left = None
+            self.right = None
+        else:
+            if left == None:
+                left = Tree()
+            if right == None:
+                right = Tree()
+            self.value = v
+            self.left = left
+            self.right = right
+ 
+def count_unival(u):
+    
+    if u.value==None:
+        return 0
+    
+    if u.right.value==None and u.left.value==None:
+        return 1
+    else:
+        if u.right.value!=None and u.left.value!=None:
+            lc = count_unival(u.left)
+            rc = count_unival(u.right)
+            if u.right.value==u.value and u.left.value==u.value:
+                return lc+rc+1
+            else:
+                return lc+rc
+        elif u.right.value!=None and u.left.value==None:
+            rc = count_unival(u.right)
+            if u.right.value==u.value:
+                return rc+1
+            else:
+                return rc
+        elif u.right.value==None and u.left.value!=None:
+            lc = count_unival(u.left)
+            if u.left.value==u.value:
+                return lc+1
+            else:
+                return lc
+        
