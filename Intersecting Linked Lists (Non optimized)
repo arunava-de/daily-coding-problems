@@ -1,0 +1,62 @@
+class Node:
+    def __init__(self, data=None, nxt=None):
+        self.data = data
+        self.nxt = nxt
+    
+    def add(self, nxt):
+        self.nxt = nxt
+    
+    def get_next(self):
+        if self.nxt:
+            return self.nxt
+        else: 
+            return False
+        
+    def get_data(self):
+        return self.data
+
+    
+        
+# First approach, reverse both the LLs and store them in lists
+A1 = []
+A2 = []
+
+L1_1 = Node(3)
+L2_1 = Node(99)
+
+#Make L1 and L2 using add function
+L1_2 = Node(3)
+L2_2 = Node(1)
+L1_3 = Node(8)
+L2_3 = Node(8)
+L1_4 = Node(10)
+L2_4 = Node(10)
+    
+L1_3.add(L1_4)
+L2_3.add(L2_4)
+L1_2.add(L1_3)
+L2_2.add(L2_3)
+L1_1.add(L1_2)
+L2_1.add(L2_2)
+
+curr = L1_1
+
+while curr.get_next():
+    A1.append(curr)
+    curr = curr.get_next()
+
+curr = L2_1
+
+while curr.get_next():
+    A2.append(curr)
+    curr = curr.get_next()
+    
+A1.reverse()
+A2.reverse()
+
+i = 0
+
+while True:
+    if A1[i]!=A2[i]:
+        print(A1[i-1].get_data())
+        break
