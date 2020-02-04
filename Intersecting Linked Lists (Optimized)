@@ -1,0 +1,58 @@
+class Node:
+    def __init__(self, data=None, nxt=None):
+        self.data = data
+        self.nxt = nxt
+    
+    def add(self, nxt):
+        self.nxt = nxt
+    
+    def get_next(self):
+        if self.nxt:
+            return self.nxt
+        else: 
+            return False
+        
+    def get_data(self):
+        return self.data
+
+# Get node count and traverse both lists in parallel
+
+def get_node_count(head):
+    i = 1
+    while head.nxt:
+        head = head.nxt
+        i += 1
+    return i
+
+n1 = get_node_count(L1_1)
+n2 = get_node_count(L2_1)
+
+diff = abs(n1-n2)
+head1 = L1_1
+head2 = L2_1
+
+if n1>n2:
+    head1 = L1_1
+    head2 = L2_1
+    while diff>0:
+        head1 = head1.nxt
+        diff -= 1
+    
+    while head1.data!=head2.data:
+        head1 = head1.nxt
+        head2 = head2.nxt
+    
+    print(head1.data)
+
+else:
+    head1 = L1_1
+    head2 = L2_1
+    while diff>0:
+        head2 = head2.nxt
+        diff -= 1
+    
+    while head1.data!=head2.data:
+        head1 = head1.nxt
+        head2 = head2.nxt
+    
+    print(head1.data)
