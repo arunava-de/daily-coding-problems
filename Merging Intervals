@@ -1,0 +1,16 @@
+def merge_intervals(arr):
+    n = len(arr)
+    merged = []
+    s = arr[0]
+    print(s)
+    for i in range(1,n):
+        if s[1]<=arr[i][0]:
+            merged.append(s)
+            s = arr[i]
+            print(s)
+        else:
+            s = (min(s[0],arr[i][0]),max(s[1],arr[i][1]))
+            print(s)
+    if s not in merged:
+        merged.append(s)
+    return merged
