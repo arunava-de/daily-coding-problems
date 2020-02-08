@@ -1,0 +1,29 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if s=='':
+            return 0
+        start = 0
+        end = 0
+        curr = 0 #Captures size of current unique substring
+        seen = set() #Captures characters seen till now in current substring
+        opt = 0 #Captures global max length substring
+        
+        while end<len(s) and start<len(s):
+            if s[end] in seen: #Stop evaluating longest substring till now and start afresh from start=end
+                # seen = {s[end]}
+                start += 1
+                if start==len(s):
+                    break
+                end = start
+                seen = set()
+                if curr>opt:
+                    opt = curr
+                curr = 0
+            else:
+                curr += 1
+                # print(curr)
+                seen.add(s[end])
+                end += 1
+                # print(seen)
+        return max(curr,opt)
+        
