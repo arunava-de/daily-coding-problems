@@ -1,0 +1,44 @@
+# Treating the maze as a graph and running BFS should give shortest path
+G = [[0, 0, 0, 0],[1, 1, 0, 1],[0, 0, 0, 0],[0, 0, 0, 0]]
+
+def neighbours(v, m, n):
+    
+    if v[0]==0:
+        if v[1]==0:
+            nbs = {(0,1),(1,0)}
+        elif v[1]==n-1:
+            nbs = {(0,n-2),(1,n-1)}
+        else:
+            nbs = {(0,v[1]-1),(0,v[1]+1),(1,v[1])}
+    elif v[0]==m-1:
+        if v[1]==0:
+            nbs = {(m-1,0),(m-1,1)}
+        elif v[1]==n-1:
+            nbs = {(m-2,n-1),(m-1,n-2)}
+        else:
+            nbs = {(m-1,v[1]-1),(m-1,v[1]+1),(m-2,v[1])}
+    else:
+        if v[1]==0:
+            nbs = {(v[0]-1,0),(v[0]+1,0),(v[0],1)}
+        elif v[1]==n-1:
+            nbs = {(v[0]-1,n-1),(v[0]+1,n-1),(v[0],n-2)}
+        else:
+            nbs = {(v[0]-1,v[1]),(v[0]+1,v[1]),(v[0],v[1]-1),(v[0],v[1]+1)}
+    
+    return nbs
+
+def shortest_path(s, e, G):
+    
+    m = len(G)
+    n = len(G[0])
+    Q = [(s,0)]
+    visited = {s}
+    dist = 0
+    while Q:
+        v,dist = Q.pop(0)
+        if v==e:
+            return dist
+        for w in neighbours(v, m, n):
+            if G[w[0]][w[1]]==0 and w not in visited:
+                Q.append((w,dist+1))
+                visited.add(w)
