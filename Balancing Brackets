@@ -1,0 +1,31 @@
+# Using stacks is the most natural option
+
+exp = '([)]'
+s = []
+
+for i in range(len(exp)):
+    if exp[i]==')':
+        if s.pop()=='(':
+            continue
+        else:
+            print("Not Balanced")
+            break
+    elif exp[i]==']':
+        if s.pop()=='[':
+            continue
+        else:
+            print("Not Balanced")
+            break
+    elif exp[i]=='}':
+        if s.pop()=='{':
+            continue
+        else:
+            print("Not Balanced")
+            break
+    else:
+        s.append(exp[i])
+
+if len(s)>0:
+    print("Not Balanced")
+else:
+    print("Balanced")
