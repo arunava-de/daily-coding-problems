@@ -1,0 +1,29 @@
+def encode(s):
+    # Idea is to use a stack
+    curr_count = 1
+    curr_char = s[0]
+    res = ''
+#     f = 0
+    
+    for i in range(1,len(s)):
+        if s[i]==curr_char:
+            curr_count += 1
+        else:
+            res = res + curr_char + str(curr_count)
+            curr_char = s[i]
+            curr_count = 1
+        if i==len(s)-1:
+            res = res + curr_char +str(curr_count)
+    
+    return res
+    
+def decode(s):
+    res = ''
+    i = 0
+    while i<len(s):
+        char = s[i]
+        count = int(s[i+1])
+        res = res + char*count
+        i += 2
+    
+    return res
