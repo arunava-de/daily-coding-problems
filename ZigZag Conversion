@@ -1,0 +1,42 @@
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        n = len(s)
+        if numRows==0 or numRows==1:
+            return s
+        M = [['' for i in range(n)] for j in range(numRows)]
+
+        r = 0
+        c = 0
+        k = 0
+
+        while k<n:
+            M[r][c] = s[k]
+            k += 1
+            
+            if k==n:
+                break
+            #Fill row wise the current column c
+            for r in range(1,numRows):
+                M[r][c] = s[k]
+                k += 1
+                if k==n:
+                    break
+            #Here r = numRows-1
+            if k==n:
+                break
+            #Fill the diagonal from (numRows-2,c+1) to (1,numRows+c-2)
+            for i in range(1,numRows-1):
+                M[r-i][c+i] = s[k]
+                k += 1
+                if k==n:
+                    break
+
+            #We need to assign r = 0 and c = c + numRows - 1
+            r = 0
+            c += numRows - 1
+        out = ''
+        for i in range(numRows):
+            for j in range(n):
+                out += M[i][j]
+        
+        return out
