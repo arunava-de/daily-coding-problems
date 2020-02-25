@@ -1,0 +1,62 @@
+class Solution:
+    def myAtoi(self, str: str) -> int:
+        n = len(str)
+        start = -1
+        end = -1
+        flag = 0
+        
+        for i in range(n):
+            c = str[i]
+            if c==' ' and flag==0:
+                continue
+            else:
+                if ord(c)>=48 and ord(c)<=57:
+                    flag = 1
+                    if i==0:
+                        start = 0
+                    else:
+                        if ord(str[i-1])<48 or ord(str[i-1])>57:
+                            start = i
+                    if i==n-1:
+                        end = n-1
+                    else:
+                        if ord(str[i+1])<48 or ord(str[i+1])>57:
+                            end = i
+                            break
+                elif c=='-' or c=='+':
+                    if flag==1:
+                        return 0
+                    if i==n-1:
+                        return 0
+                    else:
+                        if ord(str[i+1])>=48 and ord(str[i+1])<=57:
+                            continue
+                        else:
+                            return 0
+                    continue
+                else:
+                    break
+        if start==-1:
+            return 0
+        else:
+            magn = int(str[start:end+1])
+            if magn>=2**31-1:
+                if start==0:
+                    return(2**31 - 1)
+                else:
+                    if str[start-1]=='-':
+                        if magn>=2**31:
+                            return -2**31
+                        else:
+                            return -magn
+                    else:
+                        return (2**31 - 1)
+            else:
+                if start == 0:
+                    return magn
+                else:
+                    if str[start-1]=='-':
+                        return -magn
+                    else:
+                        return magn
+                    
