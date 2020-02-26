@@ -1,0 +1,28 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        
+        if x<0:
+            return False
+        # Reverse the integer
+        # First need to find number of digits
+        copy = x
+        count = 0
+        
+        while copy!=0:
+            copy = copy//10
+            count += 1
+        
+        rev = 0
+        copy = x
+        for i in range(count):
+            dig = copy%10
+            rev = rev + dig*10**(count-i-1)
+            copy = copy//10
+            
+        # print(rev)
+        # print(x)
+        
+        if rev==x:
+            return True
+        else:
+            return False
