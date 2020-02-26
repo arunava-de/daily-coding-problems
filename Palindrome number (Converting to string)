@@ -1,0 +1,10 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        copy = str(x)
+        s = str(x)
+        rev = s[::-1]
+        print(rev)
+        if rev==copy:
+            return 'true'
+        else:
+            return 'false'
