@@ -1,0 +1,23 @@
+def merge(a):
+    
+    if a==[]:
+        return False
+    
+    a = sorted(a, key = lambda x:x[0])
+    print(a)
+    n = len(a)
+    merged = []
+    prev = a[0]
+    
+    for i in range(1,n):
+        curr = a[i]
+        if curr[0]>prev[1]:
+            merged.append(prev)
+            prev = curr
+            if i==n-1:
+                merged.append(curr)
+        else:
+            prev = (min(prev[0],curr[0]),max(prev[1],curr[1]))
+            if i==n-1:
+                merged.append(prev)
+    return merged
