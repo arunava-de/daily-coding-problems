@@ -1,0 +1,15 @@
+S = list(map(int,input().split()))
+n = len(S)
+n_bin = bin(2**n-1)[2:]
+power = []
+
+for i in range(2**n):
+    b = bin(i)[2:]
+    key = '0'*(len(n_bin)-len(b)) + b
+    out = ""
+    for j in range(n):
+        if key[j] == '1':
+            out = out + " " + str(S[j])
+    power.append(out)
+
+print(power)
