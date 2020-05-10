@@ -1,0 +1,12 @@
+def max_profit(stocks):
+    mx = -10**7
+    low = 10**7
+    
+    for i in range(len(stocks)):
+        if stocks[i]<low:
+            low = stocks[i]
+            continue
+        if stocks[i]-low>mx:
+            mx = stocks[i] - low
+    
+    return mx
