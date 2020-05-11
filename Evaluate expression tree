@@ -1,0 +1,29 @@
+#We need to do a BFS on the tree
+
+def evaluate(v):
+    if v.value == '+':
+        return evaluate(v.left) + evaluate(v.right)
+    elif v.value == '-':
+        return evaluate(v.left) - evaluate(v.right)
+    elif v.value == '*':
+        return evaluate(v.left) * evaluate(v.right)
+    elif v.value == '/': #Assuming non-zero leaves
+        return evaluate(v.left) * evaluate(v.right)
+    else:
+        return v.value
+    
+class Node:
+    def __init__(self, v):
+        self.value = v
+        self.left = None
+        self.right = None
+    
+root = Node('*')
+root.left = Node('+')
+root.right = Node('+')
+root.left.left = Node(3)
+root.left.right = Node(2)
+root.right.left = Node(4)
+root.right.right = Node(5)
+
+evaluate(root)
