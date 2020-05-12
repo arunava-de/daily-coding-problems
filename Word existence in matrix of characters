@@ -1,0 +1,30 @@
+# Checking row wise
+m  = len(M)
+n = len(M[0])
+flag = 0
+
+for i in range(m):
+    s = ''.join(M[i])
+    print(s)
+    if s.find(q) == -1:
+        continue
+    else:
+        print("Word found")
+        flag = 1
+        break
+        
+# Checking column wise
+for j in range(n):
+    s = ""
+    for i in range(m):
+        s += M[i][j]
+    print(s)
+    if s.find(q) == -1:
+        continue
+    else:
+        print("Word found")
+        flag = 1
+        break
+
+if flag == 0:
+    print("Word not found")
