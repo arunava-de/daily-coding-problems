@@ -1,0 +1,9 @@
+import time
+
+def scheduler(f, n, x):
+    time.sleep(n/1000)
+    print(f(x))
+    
+
+def func(x):
+    return x**2
