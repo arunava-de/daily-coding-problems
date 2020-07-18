@@ -1,0 +1,28 @@
+#Largest non-adjacent sum in O(1) space
+
+def largest_sum(l):
+    n = len(l)
+    # M = [[0 for i in range(l)] for j in range(l)]
+
+    if n==0:
+        raise ValueError()
+    elif n==1:
+        return l[0]
+    elif n==2:
+        return max(l[0],l[1])
+
+    # Replace list with opt1 and opt2. Opt1 stores max sum from the very next element and opt2 stores max sum from the next to next element
+
+    opt1 = max(l[n-1], l[n-2])
+    opt2 = l[n-1]
+    opt = 0
+    for i in range(n-3,-1,-1):
+        opt = max(l[i] + opt2, opt1)
+        opt2 = opt1
+        opt1 = opt
+
+    return opt
+
+print(largest_sum([1,4,-5,7,-2,33,32,12]))
+print(largest_sum([2, 4, 6, 2, 5]))
+print(largest_sum([5,1,1,5]))
