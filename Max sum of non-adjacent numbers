@@ -1,0 +1,25 @@
+#Given a list of integers, write a function that returns the largest sum of non-adjacent numbers. Numbers can be 0 or negative.
+
+def largest_sum(l):
+    n = len(l)
+    # M = [[0 for i in range(l)] for j in range(l)]
+
+    if n==0:
+        raise ValueError()
+    elif n==1:
+        return l[0]
+    elif n==2:
+        return max(l[0],l[1])
+
+    opt = [0 for i in range(n)]
+
+    #opt[i] defines the max adjacent sum from i to n-1
+    opt[n-1] = l[n-1]
+    opt[n-2] = max(l[n-1], l[n-2])
+
+    for i in range(n-3,-1,-1):
+        opt[i] = max(l[i] + opt[i+2], opt[i+1] )
+
+    return opt[0]
+
+print(largest_sum([1,4,-5,7,-2,33,32,12]))
