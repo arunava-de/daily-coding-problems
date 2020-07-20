@@ -1,0 +1,11 @@
+def step_ways(S):
+    if S == 0:
+        return 1
+    elif S==1:
+        return 1
+    elif S==2:
+        return 2
+
+    return step_ways(S-1) + step_ways(S-2)
+
+print(step_ways(5))
