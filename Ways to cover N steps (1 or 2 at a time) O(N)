@@ -1,0 +1,20 @@
+def step_ways(S):
+
+    if S==0:
+        return 1
+    elif S==1:
+        return 1
+    elif S==2:
+        return 2
+
+    opt = [0 for i in range(S+1)]
+    opt[0] = 1
+    opt[1] = 1
+    opt[2] = 2
+
+    for i in range(3,S+1):
+        opt[i] = opt[i-1] + opt[i-2]
+
+    print(opt[S])
+
+step_ways(4)
