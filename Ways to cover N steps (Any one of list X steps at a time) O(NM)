@@ -1,0 +1,37 @@
+#There exists a staircase with N steps, and you can climb up any number of steps in array X at a time
+#Given N, write a function that returns the number of unique ways you can climb the staircase. The order of the steps matters.
+
+def find_pos(nums, target):
+    l,h=0,len(nums)-1
+
+    while(l<=h):
+        m=(l+h)//2
+        if (nums[m]==target):
+            return m+1
+        elif (nums[m]>target):
+            h=m-1
+        elif (nums[m]<target):
+            l=m+1
+    return l
+
+#Assume X is sorted in ascending order
+def step_ways(S, X):
+    if S<X[0]:
+        return 1
+
+    opt = [0 for i in range(S+1)]
+    opt[0] = 1
+    opt[X[0]] = 1
+    # if len(X)>1:
+    i = X[0]+1
+    while i<=S:
+        ind = find_pos(X, i)
+        for j in range(ind):
+            opt[i] += opt[i-X[j]]
+        i += 1
+
+    return opt[S]
+
+# print(find_pos([1,3,5,7,9], 3))
+
+print(step_ways(3,[1,2,3]))
