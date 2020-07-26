@@ -1,0 +1,47 @@
+#Given a string representing the file system in the specified format,
+#return the length of the longest absolute path to a file in the abstracted file system. If there is no file in the system, return 0.
+# The string "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext" represents:
+#
+# dir
+#     subdir1
+#     subdir2
+#         file.ext
+
+def longest_absolute_path(path):
+    if len(path) == 0:
+        return 0
+    elif '.' not in path:
+        raise ValueError("No files in given path")
+    else:
+        lines = path.strip().split("\n")
+        # print(lines)
+
+        ans = 0
+        stack = []
+        length = 0
+        # level = -1
+
+        for line in lines:
+            is_file = '.' in line
+            curr_level = line.count('\t')
+            curr_length = len(line) - curr_level
+
+            if len(stack) == 0:
+                if is_file:
+                    ans = max(ans, curr_length)
+                else:
+                    length += curr_length + 1 #accounting for \t
+                    stack.append((curr_length, curr_level))
+                continue
+
+            while len(stack)>0 and curr_level<=stack[-1][1]:
+                length -= stack.pop()[0] + 1 #Accounting for \t
+
+            if is_file:
+                ans = max(ans, curr_length + length)
+            else:
+                stack.append((curr_length, curr_level))
+
+        return ans
+
+print(longest_absolute_path("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext"))
