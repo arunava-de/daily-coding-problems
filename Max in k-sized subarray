@@ -1,0 +1,35 @@
+#Given an array of integers and a number k, where 1 <= k <= length of the array, compute the maximum values of each subarray of length k.
+
+from collections import deque
+
+def max_k_subarray(l,k):
+
+    if len(l)<k:
+        raise ValueError("Not enough elements in the list")
+    elif len(l)==k:
+        return max(l)
+    d = deque()
+
+    for i in range(k):
+        if len(d)==0:
+            d.append(i)
+        while d and l[i]>l[d[-1]]:
+            d.pop()
+        d.append(i)
+
+    maxes = [l[d[0]]]
+    for i in range(k,len(l)):
+        while d and d[0]<=i-k:
+            d.popleft()
+
+        while d and l[i]>l[d[-1]]:
+            d.pop()
+
+        d.append(i)
+        maxes.append(l[d[0]])
+
+    return maxes
+
+print(max_k_subarray([10,5,2,7,8,7],3))
+
+
