@@ -1,0 +1,28 @@
+# Build a row of N houses where no two adjacent houses of same color, and need to minimize cost
+# opt[i][j] is the minimum cost for i houses when the i'th house is colored j
+# Initialize with opt[0][j] = cost[0][j] for 0<=j<k
+
+def house_min_cost(costs):
+    n = len(costs)
+    k = len(costs[0])
+    opt = [[0 for i in range(k)] for j in range(n)]
+
+    # Initialize for the first house
+    for j in range(k):
+        opt[0][j] = costs[0][j]
+
+    # For the next n-1 houses
+
+    for i in range(1,n):
+        for j in range(k):
+            opt[i][j] = 100000
+            for m in range(k):
+                # opt[i][j] is minimum of current value and the value when i-1th house is colored any of k colors + cost of coloring ith house
+                # with jth color
+                if m==j:
+                    continue
+                opt[i][j] = min(opt[i-1][m]+costs[i][j], opt[i][j])
+
+    return min(opt[n-1])
+
+print(house_min_cost([[11,12,13],[14,15,16],[10,24,12],[5,20,22]]))
