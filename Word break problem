@@ -1,0 +1,43 @@
+# Given a dictionary of words and a string made up of those words (no spaces), return the original sentence in a list.
+# If there is more than one possible reconstruction, return any of them. If there is no possible reconstruction, then return null.
+
+def word_break(text, dct):
+    if text in dct or len(text)==0:
+        return [text]
+
+    # opt will be 1 if text[0:i+1] can be segmented into dictionary words, else 0
+    opt = [0] * (len(text))
+    # wb stores the break indices
+    brk_pts = [-1]
+
+    for i in range(len(text)):
+        f = 0
+
+        temp = text[brk_pts[-1]+1:i+1]
+        if temp in dct:
+            f = 1
+
+        if f==1:
+            opt[i] = 1
+            brk_pts.append(i)
+
+    # Reconstruct the sentence from the breakpoints
+    sent = ""
+
+
+    for i in range(1,len(brk_pts)):
+        sent += text[brk_pts[i-1]+1:brk_pts[i]+1] + " "
+
+    print(sent)
+
+word_break("thequickbrownfox",['i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice',
+  'cream', 'icecream', 'man', 'go', 'mango'])
+
+word_break("ilike",['i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice',
+  'cream', 'icecream', 'man', 'go', 'mango'])
+
+word_break("ilikesamsung",['i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice',
+  'cream', 'icecream', 'man', 'go', 'mango'])
+
+word_break("sammansungcreammobile",['i', 'like', 'sam', 'sung', 'samsung', 'mobile', 'ice',
+  'cream', 'icecream', 'man', 'go', 'mango'])
