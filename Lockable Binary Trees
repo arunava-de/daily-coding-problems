@@ -1,0 +1,62 @@
+#Implement locking in a binary tree. A binary tree node can be locked or unlocked only if all of its descendants or ancestors are not locked.
+
+class Tree:
+
+    def __init__(self, v, l, r, parent):
+        self.value = v
+        self.left = l
+        self.right = r
+        self._is_locked = False
+        self.parent = parent
+        self.locked_desc_count = 0
+
+    def is_locked(self):
+        if self._is_locked:
+            return True
+        return False
+
+    def is_empty(self):
+        if self.value == None:
+            return True
+
+    def is_leaf(self):
+        if self.is_empty():
+            return False
+        if self.right == None and self.left == None:
+            return True
+        return False
+
+    def can_be_locked_unlocked(self):
+        if self.locked_desc_count==0 and not self.parent._is_locked:
+            return True
+        else:
+            return False
+
+    def lock(self):
+        if self.can_be_locked_unlocked():
+            self._is_locked = True
+
+            curr = self.parent
+
+            while curr:
+                curr.parent.locked_desc_count += 1
+                curr = curr.parent
+
+            return True
+        else:
+            return False
+
+
+    def unlock(self):
+        if self.can_be_locked_unlocked():
+            self._is_locked = False
+
+            curr = self.parent
+
+            while curr:
+                curr.parent.locked_desc_count -= 1
+                curr = curr.parent
+
+            return True
+        else:
+            return False
