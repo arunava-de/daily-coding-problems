@@ -1,0 +1,18 @@
+def is_match(string,pattern):
+    dp = [[False for _ in range(len(pattern)+1)] for _ in range(len(string)+1)]
+    # dp[i][j] signifies if string[i:] and pattern[j:] match
+    dp[-1][-1] = True
+
+    for i in range(len(string),-1,-1):
+        for j in range(len(pattern)-1,-1,-1):
+            # First we check for single character match
+            first_match = (i<len(string)) and (pattern[j] in {string[i], '.'})
+
+            if j+1<len(pattern) and pattern[j+1] == "*":
+                # Either (the character matches or we completely ignore pattern[j]) and there's a match between string[i+1:] and pattern[j:]
+                dp[i][j] = (dp[i][j+2] or first_match) and dp[i+1][j]
+            else:
+                # Here we just consider the character match
+                dp[i][j] = first_match and dp[i+1][j+1]
+
+    print(dp[0][0]==True)
