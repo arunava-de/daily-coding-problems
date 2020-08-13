@@ -1,0 +1,64 @@
+#Suppose you are given a table of currency exchange rates, represented as a 2D array.
+# Determine whether there is a possible arbitrage: that is, whether there is some sequence
+# of trades you can make, starting with some amount A of any currency, so that you can end up
+# with some amount greater than A of that currency.
+# There are no transaction costs and you can trade fractional quantities.
+
+from math import log
+
+def trans_to_log(M):
+    n = len(M)
+    trans = [[0 for i in range(n)] for j in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            trans[i][j] = log(M[i][j])
+
+    return trans
+
+def has_arbitrage(exchange_rates):
+    trans = trans_to_log(exchange_rates)
+
+    source = 0
+    n = len(trans)
+    min_dist = [float('inf')]*n
+    pre = [-1]*n
+
+    min_dist[source] = source
+
+    for _ in range(n-1):
+        for source_curr in range(n):
+            for dest_curr in range(n):
+                if min_dist[dest_curr]> min_dist[source_curr] + trans[source_curr][dest_curr]:
+                    min_dist[dest_curr] = min_dist[source_curr] + trans[source_curr][dest_curr]
+                    pre[dest_curr] = source_curr
+
+    # If we can still reduce edges, then we have a negative cycle
+    f = 0
+
+    for source_curr in range(n):
+        for dest_curr in range(n):
+            if min_dist[dest_curr] > min_dist[source_curr] + trans[source_curr][dest_curr]:
+                # We got a negative cycle
+                cycle = [dest_curr, source_curr]
+                f = 1
+                break
+
+    while pre[source_curr] not in cycle:
+        cycle.append(pre[source_curr])
+        source_curr = pre[source_curr]
+
+    if f==1:
+        print("Arbitrage opportunity exists")
+    else:
+        print("No aribitrage possible")
+
+rates = [
+    [1, 0.23, 0.25, 16.43, 18.21, 4.94],
+    [4.34, 1, 1.11, 71.40, 79.09, 21.44],
+    [3.93, 0.90, 1, 64.52, 71.48, 19.37],
+    [0.061, 0.014, 0.015, 1, 1.11, 0.30],
+    [0.055, 0.013, 0.014, 0.90, 1, 0.27],
+    [0.20, 0.047, 0.052, 3.33, 3.69, 1],
+]
+has_arbitrage(rates)
