@@ -1,0 +1,23 @@
+def make_palindrome(text):
+    # Naive approach: Keep adding one character at a time at different places in the string to check if palindrome or not
+    # Time complexity: O(N^3)? Because worst case you can just plug the reverse string together with the original
+
+    n = len(text)
+    opt = [[0 for i in range(n)] for j in range(n)]
+
+    #opt[i][j] represents minimum number of insertions required to make text[i:j+1] a palindrome
+
+    for i in range(1,n):
+        l = 0
+        for j in range(i, n):
+            if text[l] == text[i]:
+                opt[l][j] = opt[l+1][j-1]
+            else:
+                opt[l][j] = min(opt[l+1][j], opt[l][j-1]) + 1
+
+            l += 1
+    
+    # This will only return the minimum number of insertions required
+    print(opt[0][n-1])
+
+make_palindrome('google')
