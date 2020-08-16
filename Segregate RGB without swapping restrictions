@@ -1,0 +1,39 @@
+# Given an array of strictly the characters 'R', 'G', and 'B', segregate the values
+# of the array so that all the Rs come first, the Gs come second, and the Bs come last.
+
+# Do this in linear time and in-place.
+
+# Let's do a counting sort and replace list values in place 
+
+def segregate_RGB(arr):
+    r = 0
+    g = 0
+    b = 0
+
+    n = len(arr)
+
+    for i in range(n):
+        if arr[i] == 'R':
+            r += 1
+        elif arr[i] == 'G':
+            g += 1
+        else:
+            b += 1
+
+    for i in range(n):
+        if r>0:
+            arr[i] = 'R'
+            r -= 1
+            continue
+        if g>0:
+            arr[i] = 'G'
+            g -= 1
+            continue
+        if b>0:
+            arr[i] = 'B'
+            b -= 1
+            continue
+
+    print(arr)
+
+segregate_RGB(['G', 'B', 'R', 'R', 'B', 'R', 'G'])
