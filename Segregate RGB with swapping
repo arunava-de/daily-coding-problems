@@ -1,0 +1,48 @@
+def segregate_RGB(arr):
+    # Keep three (?) pointers to keep track of positions of R,G and B, and swap and update accordingly
+
+    r = -1 # Position of last R
+    g = -1 # Position of last G
+    b = -1 # Position of last B
+
+    n = len(arr)
+    i = 0
+
+    while i<n:
+        curr = arr[i]
+        if r>=n-1 or g>=n-1 or b>=n-1:
+            break
+        if curr == 'R':
+            # We need to move pointers for both G and B here as well, since R comes first
+            arr[r+1], arr[i] = arr[i], arr[r+1]
+
+            # Now arr[i] is arr[r+1], which is a 'G' if there are any 'G's
+            if g!=r:
+                arr[g+1], arr[i] = arr[i], arr[g+1]
+                # g += 1
+                # Putting G in the proper place
+            # Now arr[i] is arr[g+1], which is a 'B' if there are any 'B's
+            if b!=g:
+                arr[b+1], arr[i] = arr[i], arr[b+1]
+                # b += 1
+            r += 1
+            g += 1
+            b += 1
+        elif curr == 'G':
+            # We need to move pointer for B, since G comes before B
+            arr[g+1], arr[i] = arr[i], arr[g+1]
+            # Now arr[i] is arr[g+1], which is a 'B' if there are any 'B's
+            if b!=g:
+                arr[b+1], arr[i] = arr[i], arr[b+1]
+            g += 1
+            b += 1
+        else:
+            arr[b+1], arr[i] = arr[i], arr[b+1]
+            b += 1
+        i += 1
+
+    print(arr)
+
+segregate_RGB(['G', 'B', 'R', 'R', 'B', 'R', 'G'])
+
+segregate_RGB(['B', 'B', 'B', 'G', 'G', 'R', 'R'])
