@@ -1,0 +1,25 @@
+# Given the root to a binary search tree, find the second largest node in the tree.
+
+class BST(object):
+     
+     def __init__(self, v, l, r):
+         self.value = v
+         self.left = l
+         self.right = r
+    
+def second_largest(root):
+    if root == None:
+        raise ValueError("Tree is empty")
+    elif root.left == None and root.right == None:
+        raise ValueError("Tree has only one node")
+    else:
+        # If right most node has a left child, that is the second largest. Else parent of the right most node is the second largest.
+        curr = root
+        
+        while curr.right.right!=None:
+            curr = curr.right
+            
+        if curr.right.left:
+            return curr.right.left.value
+        else:
+            return curr.value
