@@ -1,4 +1,6 @@
-def find_non_dup(A):
+# Solution with O(N) time and O(N) space
+
+def find_non_dup_slow(A):
     counts = dict()
     for a in A:
         if a in counts.keys():
