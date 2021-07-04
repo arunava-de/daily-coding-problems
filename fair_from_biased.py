@@ -6,4 +6,5 @@ def make_fair():
         return v1
 
     return make_fair()
-    
+
+# foo() is the biased coin tosser
