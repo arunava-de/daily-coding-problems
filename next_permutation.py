@@ -22,4 +22,4 @@ def next_permutation(num):
     if flag==1:
         return num 
 
-    return sorted(num, reverse=True)
+    return sorted(num)
