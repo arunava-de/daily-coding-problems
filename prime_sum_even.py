@@ -14,6 +14,11 @@ def is_prime(num):
 
 def prime_sum(num):
 
-    for i in range(1,num//2):
+    if num==4:
+        return (2,2)
+
+    for i in range(1,1+num//2):
         if is_prime(i) and is_prime(num-i):
             return (i,num-i)
+
+            
