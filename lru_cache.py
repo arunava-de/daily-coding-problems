@@ -25,15 +25,16 @@ class LRUCache:
         node.prev = self.head 
         self.head.next = node  
 
-    def set(self, key, val):
+    def put(self, key, val):
         if key in self.hash: #Key already present in cache, we need to bring it to the top
             node = self.hash[key]
             node.val = val
             self.deleteNode(node)
             self.addToHead(node)
         else: #Key not present in cache, need to add
-            node = self.hash[key]
-            node.val = val 
+            # node = self.hash[key]
+            node = Node(key, val)
+            self.hash[key] = node
             if self.count>self.capacity: #Here we delete last node
                 del self.hash[self.tail.prev.key]
                 self.deleteNode(self.tail.prev)
@@ -54,4 +55,14 @@ class LRUCache:
 
 
 
+lru = LRUCache(2)
+lru.put(1, 1)
+lru.put(2,2)
+lru.get(1)
+lru.put(3,3)
+lru.get(2)
+lru.put(4,4)
+lru.get(1)
+lru.get(3)
+lru.get(4)
 
